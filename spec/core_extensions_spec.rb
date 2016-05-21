@@ -16,9 +16,9 @@ describe Array do
   end
 
   context "#all_same?" do
-  it "returns true if all elements of the Array are the same" do
-    expect(["A", "A", "A"].all_same?).to be_true
-  end
+    it "returns true if all elements of the Array are the same" do
+      expect (["A", "A", "A"].all_same?).to be_truthy
+    end
 
     it "returns false if some of the Array elements are not the same" do
       expect(["", 1, "", Object.new, :a].all_same?).to be_falsey
