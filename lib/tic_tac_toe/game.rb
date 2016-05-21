@@ -3,9 +3,11 @@ module TicTacToe
     def initialize
       @humanMoves = []
       @computerMoves = []
-      @dangerCombos = [[1, 2], [2, 3], [1, 3], [4, 5], [5, 6], [4, 6], [7, 8],
-                      [8, 9], [7, 9], [1, 5], [5, 9], [3, 5], [5, 7], [1, 4], [1, 7], [4, 7],
-                      [2, 5], [5, 8], [3, 6], [6, 9], [3, 9]]
+
+      @dangerCombos = [[1, 2, 3], [2, 3, 1], [1, 3, 2], [4, 5, 6], [5, 6, 4],
+                      [4, 6, 5], [7, 8, 9], [8, 9, 7], [7, 9, 8], [1, 5, 9],
+                      [5, 9, 1], [3, 5, 7], [5, 7, 3], [1, 4, 7], [1, 7, 4],
+                      [4, 7, 1], [2, 5, 8], [5, 8, 2], [3, 6, 9], [6, 9, 3], [3, 9, 6]]
     end
 
     def start_game
@@ -13,8 +15,8 @@ module TicTacToe
       @player = Player.new
       @player.set_players
       if @player.computerChar == 'X'
-        @board.update(5, @player.computerChar)
-        @computerMoves << 5
+        @board.update(7, @player.computerChar)
+        @computerMoves << 7
         take_turn
       else
         take_turn
@@ -27,50 +29,47 @@ module TicTacToe
       move = gets.chomp.to_i
       @board.update(move, @player.playerChar)
       @humanMoves << move
-      computer_turn
+      if @player.computerChar == 'X'
+        computer_turn_x
+      else
+        computer_turn_o
+      end
     end
 
     def computer_move(move)
       @board.update(move, @player.computerChar)
       @computerMoves << move
       @board.display
-      if winner? == true
+      if winner? == true || draw? == true
         end_game
       else
       take_turn
     end
     end
 
-    def computer_turn
-      puts "Computer's turn"
-      if @humanMoves.length == 1
-        if @board.grid[4].is_a?(Integer)
-          computer_move(5)
-        elsif @computerMoves == []
-          computer_move(7)
-        elsif (@humanMoves.include? 1) || (@humanMoves.include? 2) || (@humanMoves.include? 4)
-          computer_move(9)
-        elsif (@humanMoves.include? 9) || (@humanMoves.include? 8) || (@humanMoves.include? 6)
-          computer_move(1)
-        elsif @humanMoves.include? 7
-          computer_move(3)
-        elsif @humanMoves.include? 3
-          computer_move 7
-        end
-      elsif @humanMoves.length >= 2
-        if winning_move? == true
-          win
-        elsif danger_combos? == true
-          defeat_danger
-        else
-          puts "Where should you move?"
-        end
+    def computer_turn_o
+      "Computer's turn"
+      if is_free?(5)
+        computer_move(5)
+      else
+        computer_move(9) if is_free?(9) && @humanMoves.include?(5)
       end
+      win if winning_move?
+      defeat_danger if danger_combos?
+      computer_move(8) if is_free?(8) && @computerMoves.include?(5)
+      computer_move(3) if is_free?(3)
+      computer_move(7) if is_free?(7)
+      take_turn
+    end
+
+    def computer_turn_x
+      puts "Computer's turn"
+
       end
 
     def end_game
-      @board.display
       puts "GAME OVER!! YOU LOSE!!"
+      @board.display
       @computerMoves.each do |move|
         puts "#{move}"
       end
@@ -95,7 +94,7 @@ module TicTacToe
 
 
     def draw?
-      return true if @humanMoves.length + @computerMoves.length == 9
+      return true if @humanMoves.length + @computerMoves.length == 9 && winner? == false
     end
 
     def winning_move?
@@ -115,95 +114,25 @@ module TicTacToe
     end
 
     def win
-      if (@computerMoves.include? 1) && (@computerMoves.include? 2)
-        computer_move(3) if @board.grid[2].is_a?(Integer)
-      elsif (@computerMoves.include? 2) && (@computerMoves.include? 3)
-        computer_move(1) if @board.grid[0].is_a?(Integer)
-      elsif (@computerMoves.include? 1) && (@computerMoves.include? 3)
-        computer_move(2) if @board.grid[1].is_a?(Integer)
-      elsif (@computerMoves.include? 4) && (@computerMoves.include? 5)
-        computer_move(6) if @board.grid[5].is_a?(Integer)
-      elsif (@computerMoves.include? 5) && (@computerMoves.include? 6)
-        computer_move(4) if @board.grid[3].is_a?(Integer)
-      elsif (@computerMoves.include? 4) && (@computerMoves.include? 6)
-        computer_move(5) if @board.grid[4].is_a?(Integer)
-      elsif (@computerMoves.include? 7) && (@computerMoves.include? 8)
-        computer_move(9) if @board.grid[8].is_a?(Integer)
-      elsif (@computerMoves.include? 8) && (@computerMoves.include? 9)
-        computer_move(7) if @board.grid[6].is_a?(Integer)
-      elsif (@computerMoves.include? 7) && (@computerMoves.include? 9)
-        computer_move(8) if @board.grid[7].is_a?(Integer)
-      elsif (@computerMoves.include? 1) && (@computerMoves.include? 5)
-        computer_move(9) if @board.grid[8].is_a?(Integer)
-      elsif (@computerMoves.include? 5) && (@computerMoves.include? 9)
-        computer_move(1) if @board.grid[0].is_a?(Integer)
-      elsif (@computerMoves.include? 3) && (@computerMoves.include? 5)
-        computer_move(7) if @board.grid[6].is_a?(Integer)
-      elsif (@computerMoves.include? 5) && (@computerMoves.include? 7)
-        computer_move(3) if @board.grid[2].is_a?(Integer)
-      elsif (@computerMoves.include? 1) && (@computerMoves.include? 4)
-        computer_move(7) if @board.grid[6].is_a?(Integer)
-      elsif (@computerMoves.include? 1) && (@computerMoves.include? 7)
-        computer_move(4) if @board.grid[3].is_a?(Integer)
-      elsif (@computerMoves.include? 4) && (@computerMoves.include? 7)
-        computer_move(1) if @board.grid[0].is_a?(Integer)
-      elsif (@computerMoves.include? 2) && (@computerMoves.include? 5)
-        computer_move(8) if @board.grid[7].is_a?(Integer)
-      elsif (@computerMoves.include? 5) && (@computerMoves.include? 8)
-        computer_move(2) if @board.grid[1].is_a?(Integer)
-      elsif (@computerMoves.include? 3) && (@computerMoves.include? 6)
-        computer_move(9) if @board.grid[8].is_a?(Integer)
-      elsif (@computerMoves.include? 6) && (@computerMoves.include? 9)
-        computer_move(3) if @board.grid[2].is_a?(Integer)
-      elsif (@computerMoves.include? 3) && (@computerMoves.include? 9)
-        computer_move(6) if @board.grid[5].is_a?(Integer)
+      @dangerCombos.each do |array|
+        if (@computerMoves.include? (array[0])) && (@computerMoves.include? (array[1]))
+          computer_move(array[2]) if is_free?(array[2])
+        end
+      end
+    end
+
+    def defeat_danger
+      @dangerCombos.each do |array|
+        if (@humanMoves.include? (array[0])) && (@humanMoves.include? (array[1]))
+
+          computer_move(array[2]) if is_free?(array[2])
+        end
     end
   end
 
-    def defeat_danger
-      if (@humanMoves.include? 1) && (@humanMoves.include? 2)
-        computer_move 3 if @board.grid[2].is_a?(Integer)
-      elsif (@humanMoves.include? 2) && (@humanMoves.include? 3)
-        computer_move 1 if @board.grid[0].is_a?(Integer)
-      elsif (@humanMoves.include? 1) && (@humanMoves.include? 3)
-        computer_move 2 if @board.grid[1].is_a?(Integer)
-      elsif (@humanMoves.include? 4) && (@humanMoves.include? 5)
-        computer_move 6 if @board.grid[5].is_a?(Integer)
-      elsif (@humanMoves.include? 5) && (@humanMoves.include? 6)
-        computer_move 4 if @board.grid[3].is_a?(Integer)
-      elsif (@humanMoves.include? 4) && (@humanMoves.include? 6)
-        computer_move(5) if @board.grid[4].is_a?(Integer)
-      elsif (@humanMoves.include? 7) && (@humanMoves.include? 8)
-        computer_move(9) if @board.grid[8].is_a?(Integer)
-      elsif (@humanMoves.include? 8) && (@humanMoves.include? 9)
-        computer_move(7) if @board.grid[6].is_a?(Integer)
-      elsif (@humanMoves.include? 7) && (@humanMoves.include? 9)
-        computer_move(8) if @board.grid[7].is_a?(Integer)
-      elsif (@humanMoves.include? 1) && (@humanMoves.include? 5)
-        computer_move(9) if @board.grid[8].is_a?(Integer)
-      elsif (@humanMoves.include? 5) && (@humanMoves.include? 9)
-        computer_move(1) if @board.grid[0].is_a?(Integer)
-      elsif (@humanMoves.include? 3) && (@humanMoves.include? 5)
-        computer_move(7) if @board.grid[6].is_a?(Integer)
-      elsif (@humanMoves.include? 5) && (@humanMoves.include? 7)
-        computer_move(3) if @board.grid[2].is_a?(Integer)
-      elsif (@humanMoves.include? 1) && (@humanMoves.include? 4)
-        computer_move(7) if @board.grid[6].is_a?(Integer)
-      elsif (@humanMoves.include? 1) && (@humanMoves.include? 7)
-        computer_move(4) if @board.grid[3].is_a?(Integer)
-      elsif (@humanMoves.include? 4) && (@humanMoves.include? 7)
-        computer_move(1) if @board.grid[0].is_a?(Integer)
-      elsif (@humanMoves.include? 2) && (@humanMoves.include? 5)
-        computer_move(8) if @board.grid[7].is_a?(Integer)
-      elsif (@humanMoves.include? 5) && (@humanMoves.include? 8)
-        computer_move(2) if @board.grid[1].is_a?(Integer)
-      elsif (@humanMoves.include? 3) && (@humanMoves.include? 6)
-        computer_move(9) if @board.grid[8].is_a?(Integer)
-      elsif (@humanMoves.include? 6) && (@humanMoves.include? 9)
-        computer_move(3) if @board.grid[2].is_a?(Integer)
-      elsif (@humanMoves.include? 3) && (@humanMoves.include? 9)
-        computer_move(6) if @board.grid[5].is_a?(Integer)
-      end
-  end
+    def is_free? (move)
+      return true if @board.grid[move - 1].is_a?(Integer)
+    end
+
 end
 end
