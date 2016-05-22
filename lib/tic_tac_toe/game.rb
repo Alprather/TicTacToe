@@ -40,7 +40,7 @@ module TicTacToe
       @board.update(move, @player.computerChar)
       @computerMoves << move
       @board.display
-      if winner? == true || draw? == true
+      if winner? == true
         end_game
       else
       take_turn
@@ -60,6 +60,8 @@ module TicTacToe
       computer_move(3) if is_free?(3)
       computer_move(7) if is_free?(7)
       take_turn
+
+      # play 5,7,6,1 returns error with no move!!
     end
 
     def computer_turn_x
@@ -94,7 +96,11 @@ module TicTacToe
 
 
     def draw?
-      return true if @humanMoves.length + @computerMoves.length == 9 && winner? == false
+      draw = true
+      for i in 1..9
+        draw = false if is_free?(i) == true
+      end
+      draw
     end
 
     def winning_move?
