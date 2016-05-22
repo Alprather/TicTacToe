@@ -15,11 +15,12 @@ module TicTacToe
       @player = Player.new
       @player.set_players
       if @player.computerChar == 'X'
-        @board.update(7, @player.computerChar)
-        @computerMoves << 7
-        take_turn
+        puts "Computer's turn"
+        computer_turn_x
       else
         take_turn
+        puts "Computer's turn"
+        computer_turn_o
       end
     end
 
@@ -29,10 +30,10 @@ module TicTacToe
       move = gets.chomp.to_i
       @board.update(move, @player.playerChar)
       @humanMoves << move
-      if @player.computerChar == 'X'
-        computer_turn_x
+      if winner? == true || draw? == true
+        end_game
       else
-        computer_turn_o
+        puts "Computer's turn"
       end
     end
 
@@ -42,30 +43,30 @@ module TicTacToe
       @board.display
       if winner? == true
         end_game
+      elsif draw? == true
+        end_game
       else
-      take_turn
+        take_turn
     end
     end
 
     def computer_turn_o
-      "Computer's turn"
       if is_free?(5)
         computer_move(5)
+        computer_move(8) if is_free?(8) && @computerMoves.include?(5) && @humanMoves.include?(3) && @humanMoves.include?(7)
       else
-        computer_move(9) if is_free?(9) && @humanMoves.include?(5)
+        computer_move(9) if is_free?(9)
       end
-      win if winning_move?
-      defeat_danger if danger_combos?
-      computer_move(8) if is_free?(8) && @computerMoves.include?(5)
-      computer_move(3) if is_free?(3)
-      computer_move(7) if is_free?(7)
-      take_turn
-
-      # play 5,7,6,1 returns error with no move!!
+        movePriorities = [3, 7, 1, 2, 4, 6]
+        movePriorities.each do |move|
+          win if winning_move?
+          defeat_danger if danger_combos? == true
+          computer_move(move) if is_free?(move)
+        end
     end
 
     def computer_turn_x
-      puts "Computer's turn"
+      computer_move(7)
 
       end
 
@@ -96,11 +97,7 @@ module TicTacToe
 
 
     def draw?
-      draw = true
-      for i in 1..9
-        draw = false if is_free?(i) == true
-      end
-      draw
+      return true if @computerMoves.length + @humanMoves.length == 9
     end
 
     def winning_move?
@@ -130,7 +127,6 @@ module TicTacToe
     def defeat_danger
       @dangerCombos.each do |array|
         if (@humanMoves.include? (array[0])) && (@humanMoves.include? (array[1]))
-
           computer_move(array[2]) if is_free?(array[2])
         end
     end
