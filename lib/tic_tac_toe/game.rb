@@ -53,7 +53,8 @@ module TicTacToe
     def computer_turn_o
       if is_free?(5)
         computer_move(5)
-        computer_move(8) if is_free?(8) && @computerMoves.include?(5) && @humanMoves.include?(3) && @humanMoves.include?(7)
+        computer_move(8) if is_free?(8) && @humanMoves.include?(3) && @humanMoves.include?(7)
+        computer_move(8) if is_free?(8) && @humanMoves.include?(1) && @humanMoves.include?(9)
       else
         computer_move(9) if is_free?(9)
       end
