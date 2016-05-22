@@ -5,9 +5,9 @@ module TicTacToe
       @computerMoves = []
 
       @dangerCombos = [[1, 2, 3], [2, 3, 1], [1, 3, 2], [4, 5, 6], [5, 6, 4],
-                      [4, 6, 5], [7, 8, 9], [8, 9, 7], [7, 9, 8], [1, 5, 9],
-                      [5, 9, 1], [3, 5, 7], [5, 7, 3], [1, 4, 7], [1, 7, 4],
-                      [4, 7, 1], [2, 5, 8], [5, 8, 2], [3, 6, 9], [6, 9, 3], [3, 9, 6]]
+                      [4, 6, 5], [7, 8, 9], [8, 9, 7], [7, 9, 8], [1, 5, 9], [9, 1, 5],
+                      [5, 9, 1], [3, 7, 5], [3, 5, 7], [5, 7, 3], [1, 4, 7], [1, 7, 4],
+                      [4, 7, 1], [2, 5, 8], [5, 8, 2], [2, 8, 5], [3, 6, 9], [6, 9, 3], [3, 9, 6]]
     end
 
     def start_game
@@ -68,7 +68,26 @@ module TicTacToe
 
     def computer_turn_x
       computer_move(7)
-
+      if @humanMoves.include?(5)
+        computer_move(3)
+        until draw? == true || winner? == true
+          win if winning_move?
+          defeat_danger if danger_combos?
+        end
+      elsif @humanMoves.include?(2)
+        computer_move(9)
+        computer_move(5) if @humanMoves.include?(8)
+        win
+      elsif @humanMoves.include?(8) || @humanMoves.include?(9)
+        computer_move(1)
+        is_free?(3) ? computer_move(3) : computer_move(9)
+        win
+      else
+        computer_move(9)
+        computer_move(1) if @humanMoves.include?(3) || @humanMoves.include?(6)
+        computer_move(3) if @humanMoves.include?(1) || @humanMoves.include?(4)
+        win if winning_move?
+      end
       end
 
     def end_game
