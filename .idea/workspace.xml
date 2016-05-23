@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="879258a5-1ba8-4b8d-9234-dd7f66999b5c" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tic_tac_toe/board.rb" afterPath="$PROJECT_DIR$/lib/tic_tac_toe/board.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tic_tac_toe/game.rb" afterPath="$PROJECT_DIR$/lib/tic_tac_toe/game.rb" />
     </list>
     <ignored path="tic_tac_toe.iws" />
@@ -45,8 +46,8 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <marker date="1463920189000" expanded="true" signature="29:4506" placeholder=" ... end" />
-                <marker date="1463920189000" expanded="true" signature="48:53" placeholder=" ... end" />
+                <marker date="1463937496000" expanded="true" signature="29:4540" placeholder=" ... end" />
+                <marker date="1463937496000" expanded="true" signature="48:53" placeholder=" ... end" />
               </folding>
             </state>
           </provider>
@@ -371,8 +372,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1463920189000" expanded="true" signature="29:4506" placeholder=" ... end" />
-            <marker date="1463920189000" expanded="true" signature="48:53" placeholder=" ... end" />
+            <marker date="1463937496000" expanded="true" signature="29:4540" placeholder=" ... end" />
+            <marker date="1463937496000" expanded="true" signature="48:53" placeholder=" ... end" />
           </folding>
         </state>
       </provider>

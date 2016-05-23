@@ -58,7 +58,7 @@ module TicTacToe
       else
         computer_move(9) if is_free?(9)
       end
-        movePriorities = [3, 7, 1, 2, 4, 6]
+        movePriorities = [3, 7, 1, 2, 4, 6, 8]
         movePriorities.each do |move|
           win if winning_move?
           defeat_danger if danger_combos? == true
@@ -70,12 +70,12 @@ module TicTacToe
       computer_move(7)
       if @humanMoves.include?(5)
         computer_move(3)
-        until draw? == true || winner? == true
-          win if winning_move?
+        until winner? == true
+          win if winning_move?                      #this if statement exits and goes to else before game_over?
           defeat_danger if danger_combos?
         end
       elsif @humanMoves.include?(2)
-        computer_move(9)
+        computer_move(9)                                #5,1,8... doesn't work
         computer_move(5) if @humanMoves.include?(8)
         win
       elsif @humanMoves.include?(8) || @humanMoves.include?(9)
