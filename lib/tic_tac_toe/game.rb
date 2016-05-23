@@ -101,7 +101,7 @@ module TicTacToe
         computer_move(9) if is_free?(9)
         computer_move(5) if @humanMoves.include?(8)
         win
-      elsif @humanMoves.include?(8) || @humanMoves.include?(9)
+      elsif @humanMoves.include?(8) || @humanMoves.include?(9)   #9, 3 doesn't work
         computer_move(1) if is_free?(1)
         is_free?(3) ? computer_move(3) : computer_move(9)
         win
@@ -117,14 +117,13 @@ module TicTacToe
       puts "e\[H\e[2J"
       if winner? == true
         puts "GAME OVER!! YOU LOSE!!".red
-        puts " "
         @board.display
       else
         puts "IT'S A DRAW!!...  But good luck beating me!".red
-        puts " "
       end
-      puts " "
       puts "Would you like to play again? yes/no"
+      puts " "
+      @board.display
       response = gets.chomp.downcase
       if response == "yes"
         new_game
@@ -152,6 +151,8 @@ module TicTacToe
       @dangerCombos.each do |array|
         if (@computerMoves.include? (array[0])) && (@computerMoves.include? (array[1]))
           return true
+        else
+          return false
         end
       end
     end
@@ -177,8 +178,8 @@ module TicTacToe
         if (@humanMoves.include? (array[0])) && (@humanMoves.include? (array[1]))
           computer_move(array[2]) if is_free?(array[2])
         end
+      end
     end
-  end
 
     def is_free? (move)
       return true if @board.grid[move - 1].is_a?(Integer)
