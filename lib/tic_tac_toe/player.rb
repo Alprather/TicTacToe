@@ -8,8 +8,10 @@ module TicTacToe
     end
 
     def set_players
-      puts "What is your name?"
-      @name = gets.chomp.capitalize
+      if @name == nil
+        puts "What is your name?"
+        @name = gets.chomp.capitalize
+      end
       puts "Would you like to go first? Yes/No"
       response = gets.chomp.downcase
         if response == "yes"

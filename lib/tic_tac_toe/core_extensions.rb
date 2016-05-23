@@ -1,17 +1,20 @@
 class Array
-  def all_empty?
-    self.all? { |element| element.to_s.empty? }
-  end
 
   def all_same?
     self.all? {|element| element == self[0] }
   end
+end
 
-  def any_empty?
-    self.any? { |element| element.to_s.empty? }
+class String
+  def red
+    "\e[31m#{self}\e[0m"
   end
 
-  def none_empty?
-    !any_empty?
+  def green
+    "\e[32m#{self}\e[0m"
+  end
+
+  def blue
+    "\e[34m#{self}\e[0m"
   end
 end

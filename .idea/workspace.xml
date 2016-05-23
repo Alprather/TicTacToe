@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="879258a5-1ba8-4b8d-9234-dd7f66999b5c" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/tic_tac_toe/gamenotes" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tic_tac_toe/board.rb" afterPath="$PROJECT_DIR$/lib/tic_tac_toe/board.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tic_tac_toe/core_extensions.rb" afterPath="$PROJECT_DIR$/lib/tic_tac_toe/core_extensions.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tic_tac_toe/game.rb" afterPath="$PROJECT_DIR$/lib/tic_tac_toe/game.rb" />
     </list>
     <ignored path="tic_tac_toe.iws" />
@@ -46,8 +48,8 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <marker date="1463937496000" expanded="true" signature="29:4540" placeholder=" ... end" />
-                <marker date="1463937496000" expanded="true" signature="48:53" placeholder=" ... end" />
+                <marker date="1463982694000" expanded="true" signature="29:4858" placeholder=" ... end" />
+                <marker date="1463982694000" expanded="true" signature="48:53" placeholder=" ... end" />
               </folding>
             </state>
           </provider>
@@ -319,6 +321,9 @@
     </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="879258a5-1ba8-4b8d-9234-dd7f66999b5c" name="Default" comment="" />
@@ -351,6 +356,14 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
@@ -372,8 +385,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1463937496000" expanded="true" signature="29:4540" placeholder=" ... end" />
-            <marker date="1463937496000" expanded="true" signature="48:53" placeholder=" ... end" />
+            <marker date="1463982694000" expanded="true" signature="29:4858" placeholder=" ... end" />
+            <marker date="1463982694000" expanded="true" signature="48:53" placeholder=" ... end" />
           </folding>
         </state>
       </provider>

@@ -3,23 +3,20 @@ module TicTacToe
     attr_accessor :grid
     def initialize
       @grid = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-      @displayGrid = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+      @winningCombo = []
     end
 
     def display
-      puts " "
-      puts "1 | 2 | 3          #{@displayGrid[0]} | #{@displayGrid[1]} | #{@displayGrid[2]}"
-      puts "----------        -----------"
-      puts "4 | 5 | 6   ->>    #{@displayGrid[3]} | #{@displayGrid[4]} | #{@displayGrid[5]}"
-      puts "----------        -----------"
-      puts "7 | 8 | 9          #{@displayGrid[6]} | #{@displayGrid[7]} | #{@displayGrid[8]}"
+      puts "#{@grid[0]}" " | " "#{@grid[1]}" " | " "#{@grid[2]}"
+      puts "----------"
+      puts "#{@grid[3]}" " | " "#{@grid[4]}" " | " "#{@grid[5]}"
+      puts "----------"
+      puts "#{@grid[6]}" " | " "#{@grid[7]}" " | " "#{@grid[8]}"
     end
-
 
     def update(move, code)
         if @grid[move - 1].is_a?(Integer)
-          @grid[move - 1] = code
-          @displayGrid[move-1] = code
+          @grid[move - 1] = code.green
         else
           puts "Invalid move, try again"
         end
