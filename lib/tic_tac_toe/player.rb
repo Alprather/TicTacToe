@@ -1,17 +1,13 @@
 module TicTacToe
   class Player
     attr_accessor :name, :playerChar, :computerChar
-    def initialize
+    def initialize(name)
     		@name = name
         @playerChar = playerChar
         @computerChar = computerChar
     end
 
-    def set_players
-      if @name == nil
-        puts "What is your name?"
-        @name = gets.chomp.capitalize
-      end
+    def set_players(name)
       puts "Would you like to go first? Yes/No"
       response = gets.chomp.downcase
         if response == "yes"

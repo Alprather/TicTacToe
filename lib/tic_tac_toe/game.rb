@@ -11,9 +11,14 @@ module TicTacToe
     end
 
     def start_game
+      puts "e\[H\e[2J"
       @board = Board.new
-      @player = Player.new
-      @player.set_players
+      puts "WELCOME TO TIC TAC TOE"
+      puts "***********************"
+      puts "What is your name?"
+      @player = Player.new(gets.chomp.capitalize)
+      @player.set_players(@player.name)
+      puts "e\[H\e[2J"
       if @player.computerChar == 'X'
         computer_turn_x
       else
@@ -23,8 +28,10 @@ module TicTacToe
     end
 
     def new_game
+      puts "e\[H\e[2J"
+      puts "Welcome Back.  Are you ready to lose again?"
       @board = Board.new
-      @player.set_players
+      @player.set_players(@player.name)
       @humanMoves = []
       @computerMoves = []
       if @player.computerChar == 'X'
@@ -37,21 +44,17 @@ module TicTacToe
 
     def human_turn
       puts "e\[H\e[2J"
-      puts "------------------------------------------------------------------------------"
       puts "#{@player.name}, Enter a number between 1 and 9 to place #{@player.playerChar}"
       puts " "
       @board.display
       move = gets.chomp.to_i
       if is_free?(move)
-      @board.update(move, @player.playerChar)
-      @humanMoves << move
-        if winner? == true || draw? == true
-          end_game
-        else
-          puts "Computer's turn"
-        end
-      else
-        puts "Move is invalid. Try again.".red
+        @board.update(move, @player.playerChar)
+        @humanMoves << move
+          if winner? == true || draw? == true
+            end_game
+          end
+      elsif is_free?(move) == false or move < 1 or move > 9
         human_turn
       end
     end
@@ -76,8 +79,8 @@ module TicTacToe
       else
         computer_move(9) if is_free?(9)
       end
-        movePriorities = [3, 7, 1, 2, 4, 6, 8]     #7,1,2 doesn't work
-        movePriorities.each do |move|
+        movePriorities = [3, 7, 1, 2, 4, 6, 8]
+        movePriorities.each do |move|               #7,1,2 doesn't work
           win if winning_move?
           if danger_combos? == true
             defeat_danger
@@ -90,7 +93,7 @@ module TicTacToe
       computer_move(7)
       if @humanMoves.include?(5)
         computer_move(3)
-        until draw? == true || winner? == true
+        until draw? == true || winner? == true        #5,9,2,4      5, 1, 8, 6
           win if winning_move?
           defeat_danger if danger_combos?
         end
@@ -99,7 +102,7 @@ module TicTacToe
         computer_move(5) if @humanMoves.include?(8)
         win
       elsif @humanMoves.include?(8) || @humanMoves.include?(9)
-        computer_move(1) if is_free(1)
+        computer_move(1) if is_free?(1)
         is_free?(3) ? computer_move(3) : computer_move(9)
         win
       else
@@ -111,16 +114,15 @@ module TicTacToe
       end
 
     def end_game
+      puts "e\[H\e[2J"
       if winner? == true
         puts "GAME OVER!! YOU LOSE!!".red
         puts " "
-
+        @board.display
       else
         puts "IT'S A DRAW!!...  But good luck beating me!".red
         puts " "
       end
-      puts " "
-      @board.display
       puts " "
       puts "Would you like to play again? yes/no"
       response = gets.chomp.downcase
