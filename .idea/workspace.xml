@@ -4,7 +4,6 @@
     <list default="true" id="879258a5-1ba8-4b8d-9234-dd7f66999b5c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tic_tac_toe/game.rb" afterPath="$PROJECT_DIR$/lib/tic_tac_toe/game.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/tic_tac_toe/new_game.rb" afterPath="$PROJECT_DIR$/lib/tic_tac_toe/new_game.rb" />
     </list>
     <ignored path="tic_tac_toe.iws" />
     <ignored path=".idea/workspace.xml" />

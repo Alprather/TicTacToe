@@ -80,7 +80,7 @@ module TicTacToe
         computer_move(9) if is_free?(9)
       end
         movePriorities = [3, 7, 1, 2, 4, 6, 8]
-        movePriorities.each do |move|               # 1   #7,1,2 doesn't work
+        movePriorities.each do |move|               #1, 8, 7 draw   #7,1,2 doesn't work draw
           win if winning_move?
           if danger_combos? == true
             defeat_danger
@@ -93,7 +93,7 @@ module TicTacToe
       computer_move(7)
       if @humanMoves.include?(5)
         computer_move(3)
-        until draw? == true || winner? == true        #5,9,2,4      5, 1, 8, 6
+        until draw? == true || winner? == true        #5,9,2,4 draw     5, 1, 8, 6 draw
           win if winning_move?
           defeat_danger if danger_combos?
         end
@@ -101,10 +101,15 @@ module TicTacToe
         computer_move(9) if is_free?(9)
         computer_move(5) if @humanMoves.include?(8)
         win
-      elsif @humanMoves.include?(8) || @humanMoves.include?(9)   #9, 3 doesn't work
+      elsif @humanMoves.include?(8) || @humanMoves.include?(9)
         computer_move(1) if is_free?(1)
-        is_free?(3) ? computer_move(3) : computer_move(9)
-        win
+        if  is_free?(3)
+          computer_move(3)
+        elsif is_free?(9)
+          computer_move(9)
+        else
+          win
+        end
       else
         computer_move(9) if is_free?(9)
         computer_move(1) if @humanMoves.include?(3) || @humanMoves.include?(6)
@@ -122,8 +127,6 @@ module TicTacToe
         puts "IT'S A DRAW!!...  But good luck beating me!".red
       end
       puts "Would you like to play again? yes/no"
-      puts " "
-      @board.display
       response = gets.chomp.downcase
       if response == "yes"
         new_game
