@@ -48,13 +48,13 @@ module TicTacToe
       puts " "
       @board.display
       move = gets.chomp.to_i
-      if is_free?(move)
+      if is_free?(move) && move > 0 && move < 10
         @board.update(move, @player.playerChar)
         @humanMoves << move
           if winner? == true || draw? == true
             end_game
           end
-      elsif is_free?(move) == false or move < 1 or move > 9
+      else
         human_turn
       end
     end
@@ -80,7 +80,7 @@ module TicTacToe
         computer_move(9) if is_free?(9)
       end
         movePriorities = [3, 7, 1, 2, 4, 6, 8]
-        movePriorities.each do |move|               #7,1,2 doesn't work
+        movePriorities.each do |move|               # 1   #7,1,2 doesn't work
           win if winning_move?
           if danger_combos? == true
             defeat_danger
