@@ -80,10 +80,10 @@ module TicTacToe
         computer_move(9) if is_free?(9)
       end
         movePriorities = [3, 7, 1, 2, 4, 6, 8]
-        movePriorities.each do |move|               #1, 8, 7 draw   #7,1,2 doesn't work draw
-          win if winning_move?
-          if danger_combos? == true
-            defeat_danger
+        movePriorities.each do |move|
+          until winning_move? == false && danger_combos? == false
+            win if winning_move?
+            defeat_danger if danger_combos?
           end
           computer_move(move) if is_free?(move)
         end
@@ -143,6 +143,7 @@ module TicTacToe
           return true
         end
       end
+      return false
     end
 
 
@@ -152,20 +153,20 @@ module TicTacToe
 
     def winning_move?
       @dangerCombos.each do |array|
-        if (@computerMoves.include? (array[0])) && (@computerMoves.include? (array[1]))
+        if (@computerMoves.include? (array[0])) && (@computerMoves.include? (array[1])) && is_free?(array[2])
           return true
-        else
-          return false
         end
       end
+      return false
     end
 
     def danger_combos?
       @dangerCombos.each do |array|
-        if (@humanMoves.include? (array[0])) && (@humanMoves.include? (array[1]))
+        if (@humanMoves.include? (array[0])) && (@humanMoves.include? (array[1])) && is_free?(array[2])
           return true
         end
       end
+      return false
     end
 
     def win
