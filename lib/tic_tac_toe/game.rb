@@ -87,40 +87,33 @@ module TicTacToe
           end
           computer_move(move) if is_free?(move)
         end
-    end
+      end
 
     def computer_turn_x
       computer_move(7)
-      if @humanMoves.include?(5)
+      if @humanMoves.include?(5)                #tested and works
         computer_move(3)
         until draw? == true || winner? == true
          win if winning_move?
          defeat_danger if danger_combos?
        end
-
-      elsif @humanMoves.include?(2)
+     elsif @humanMoves.include?(2)               #tested and works
         computer_move(9) if is_free?(9)
         computer_move(5) if @humanMoves.include?(8)
         win
-      elsif @humanMoves.include?(8) || @humanMoves.include?(9)
-        computer_move(1) if is_free?(1)
-        until winning_move? == false && danger_combos? == false
-          win if winning_move?
-          defeat_danger if danger_combos?
-        end
-        if  is_free?(3)
-          computer_move(3)
-        elsif is_free?(9)
-          computer_move(9)
-        else
-          win
-        end
-      else
-        computer_move(9) if is_free?(9)
-        computer_move(1) if @humanMoves.include?(3) || @humanMoves.include?(6)
-        computer_move(3) if @humanMoves.include?(1) || @humanMoves.include?(4)
+      elsif @humanMoves.include?(8) or @humanMoves.include?(9)           #tested and works
+        computer_move(1) if is_free?(1)                             #move 5, 2, 8, 9, 7
         win if winning_move?
-      end
+        computer_move(3) if is_free?(3)
+        win if winning_move?
+      else
+        computer_move(9)
+        win if winning_move?
+        computer_move(5)
+        win if winning_move?
+        defeat_danger if danger_combos?
+        computer_move(4) if is_free?(4)
+        computer_move(6) if is_free?(6)
       end
 
     def end_game
