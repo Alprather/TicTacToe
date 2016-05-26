@@ -93,8 +93,10 @@ module TicTacToe
       computer_move(7)
       if @humanMoves.include?(5)
         computer_move(3)
-        defeat_danger if danger_combos?
-        win
+        until draw? == true || winner? == true
+         win if winning_move?
+         defeat_danger if danger_combos?
+       end
 
       elsif @humanMoves.include?(2)
         computer_move(9) if is_free?(9)
@@ -175,7 +177,10 @@ module TicTacToe
     def win
       @dangerCombos.each do |array|
         if (@computerMoves.include? (array[0])) && (@computerMoves.include? (array[1]))
-          computer_move(array[2]) if is_free?(array[2])
+            if is_free?(array[2])
+                computer_move(array[2])
+                return
+              end
         end
       end
     end
@@ -183,8 +188,10 @@ module TicTacToe
     def defeat_danger
       @dangerCombos.each do |array|
         if (@humanMoves.include? (array[0])) && (@humanMoves.include? (array[1]))
-          computer_move(array[2]) if is_free?(array[2])
+           if is_free?(array[2])
+             computer_move(array[2])
           return
+        end
         end
       end
     end
