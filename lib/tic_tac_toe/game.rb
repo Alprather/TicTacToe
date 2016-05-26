@@ -114,6 +114,8 @@ module TicTacToe
         defeat_danger if danger_combos?
         computer_move(4) if is_free?(4)
         computer_move(6) if is_free?(6)
+
+      end
       end
 
     def end_game
