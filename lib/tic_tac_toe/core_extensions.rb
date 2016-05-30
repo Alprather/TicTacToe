@@ -1,9 +1,3 @@
-class Array
-
-  def all_same?
-    self.all? {|element| element == self[0] }
-  end
-end
 
 def clear_screen
   puts "e\[H\e[2J"

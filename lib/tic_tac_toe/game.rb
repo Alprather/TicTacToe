@@ -4,7 +4,7 @@ module TicTacToe
       @human_moves = []
       @computer_moves = []
 
-      @dangerCombos = [[1, 2, 3], [2, 3, 1], [1, 3, 2], [4, 5, 6], [5, 6, 4],
+      @danger_combos = [[1, 2, 3], [2, 3, 1], [1, 3, 2], [4, 5, 6], [5, 6, 4],
                       [4, 6, 5], [7, 8, 9], [8, 9, 7], [7, 9, 8], [1, 5, 9], [9, 1, 5],
                       [5, 9, 1], [3, 7, 5], [3, 5, 7], [5, 7, 3], [1, 4, 7], [1, 7, 4],
                       [4, 7, 1], [2, 5, 8], [5, 8, 2], [2, 8, 5], [3, 6, 9], [6, 9, 3], [3, 9, 6]]
@@ -16,7 +16,7 @@ module TicTacToe
       @player = Player.new
       @player.set_players
       clear_screen
-      if @player.computerChar == 'X'
+      if @player.computer_char == 'X'
         computer_turn_x
       else
         human_turn
@@ -26,12 +26,12 @@ module TicTacToe
 
     def human_turn
       clear_screen
-      puts "#{@player.name}, Enter a number between 1 and 9 to place #{@player.playerChar}".blue
+      puts "#{@player.name}, Enter a number between 1 and 9 to place #{@player.player_char}".blue
       puts " "
       @board.display
       move = gets.chomp.to_i
       if is_free?(move) && move > 0 && move < 10
-        @board.update(move, @player.playerChar)
+        @board.update(move, @player.player_char)
         @human_moves << move
           if winner? == true || draw? == true
             end_game
@@ -42,7 +42,7 @@ module TicTacToe
     end
 
     def computer_move(move)
-      @board.update(move, @player.computerChar)
+      @board.update(move, @player.computer_char)
       @computer_moves << move
       if winner? == true
         end_game
@@ -123,9 +123,9 @@ module TicTacToe
                        [3, 6, 9], [1, 5, 9], [3, 5, 7]]
       winningCombos.each do |array|
         if (@computer_moves.include? (array[0])) && (@computer_moves.include? (array[1])) && (@computer_moves.include? (array[2]))
-          @board.grid[array[0]-1] = @player.computerChar.red
-          @board.grid[array[1]-1] = @player.computerChar.red
-          @board.grid[array[2]-1] = @player.computerChar.red
+          @board.grid[array[0]-1] = @player.computer_char.red
+          @board.grid[array[1]-1] = @player.computer_char.red
+          @board.grid[array[2]-1] = @player.computer_char.red
           return true
         end
       end
@@ -138,7 +138,7 @@ module TicTacToe
     end
 
     def winning_move?
-      @dangerCombos.each do |array|
+      @danger_combos.each do |array|
         if (@computer_moves.include? (array[0])) && (@computer_moves.include? (array[1])) && is_free?(array[2])
           return true
         end
@@ -147,7 +147,7 @@ module TicTacToe
     end
 
     def danger_combos?
-      @dangerCombos.each do |array|
+      @danger_combos.each do |array|
         if (@human_moves.include? (array[0])) && (@human_moves.include? (array[1])) && is_free?(array[2])
           return true
         end
@@ -156,7 +156,7 @@ module TicTacToe
     end
 
     def win
-      @dangerCombos.each do |array|
+      @danger_combos.each do |array|
         if (@computer_moves.include? (array[0])) && (@computer_moves.include? (array[1]))
             if is_free?(array[2])
                 computer_move(array[2])
@@ -167,7 +167,7 @@ module TicTacToe
     end
 
     def block
-      @dangerCombos.each do |array|
+      @danger_combos.each do |array|
         if (@human_moves.include? (array[0])) && (@human_moves.include? (array[1]))
            if is_free?(array[2])
              computer_move(array[2])
