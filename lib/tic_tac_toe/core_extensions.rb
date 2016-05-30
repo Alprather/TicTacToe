@@ -5,6 +5,10 @@ class Array
   end
 end
 
+def clear_screen
+  puts "e\[H\e[2J"
+end
+
 class String
   def red
     "\e[31m#{self}\e[0m"
